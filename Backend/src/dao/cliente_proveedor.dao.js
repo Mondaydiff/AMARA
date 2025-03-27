@@ -1,5 +1,5 @@
 import { dbConnect, mssql } from '../config/conenectionSQLServer.js'
-
+/* eslint-disable camelcase */
 class CreateClienteProveedorDao {
   static async create (
     cedula_nit,

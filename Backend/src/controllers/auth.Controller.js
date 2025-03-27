@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import jwt from 'jsonwebtoken'
 import { getUserByUsername } from '../dao/usuario.dao.js'
 
