@@ -7,12 +7,15 @@ Este documento proporciona detalles sobre la API REST desarrollada para la gesti
 ## 🚀 Instalación y Configuración
 
 ### 📌 Prerrequisitos
+
 Antes de ejecutar el proyecto, asegúrate de tener instalado:
+
 - **Node.js** (versión 14 o superior)
 - **npm**
 - **SQL Server** (para la base de datos)
 
 ### 📥 Instalación
+
 1. Clonar el repositorio:
    ```bash
    git clone <URL_DEL_REPOSITORIO>
@@ -35,44 +38,31 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado:
    ```
 
 ### ▶️ Ejecución del Proyecto
+
 Para iniciar el servidor en modo desarrollo:
+
 ```bash
 npm run dev
 ```
+
 Para ejecutar en producción:
+
 ```bash
 npm start
 ```
 
 ---
 
-## 📌 Endpoints de la API
+## 📌 Documentacion de la api
 
-### 🔐 Autenticación
-| Método | Endpoint       | Descripción |
-|--------|--------------|-------------|
-| POST   | `/api/login` | Iniciar sesión y obtener un token JWT |
-| GET   | `/api/perfil` | Te manda al login |
-
-### 🏷️ Gestión de Personas
-| Método | Endpoint                 | Descripción |
-|--------|--------------------------|-------------|
-| GET    | `/api/personas`          | Obtener todas las personas |
-| GET    | `/api/personas/:id`      | obtener una persona por ID |
-
-
-### 🏢 Cliente/Proveedor
-| Método | Endpoint                       | Descripción |
-|--------|--------------------------------|-------------|
-| POST   | `/api/cliente/createCltProv`   | Crear un cliente|
-| POST   | `/api/proveedor/createCltProv`   | Crear un proveedor|
-
-📌 **Nota:** La API devuelve respuestas en formato JSON y maneja errores con códigos HTTP adecuados.
-
+```
+https://amara-backend-production-2ae0.up.railway.app/doc/
+```
 
 ---
 
 ## 📦 Scripts Disponibles
+
 En el archivo `package.json` existen los siguientes scripts útiles:
 
 - `npm run dev`: Ejecuta el servidor en modo desarrollo.
@@ -84,6 +74,7 @@ En el archivo `package.json` existen los siguientes scripts útiles:
 ---
 
 ## 🛠 Tecnologías Usadas
+
 - **Node.js** + **Express** para la API REST.
 - **MSSQL** como base de datos.
 - **dotenv** para manejo de variables de entorno.
@@ -92,15 +83,12 @@ En el archivo `package.json` existen los siguientes scripts útiles:
 ---
 
 ## 🤝 Contribución
+
 para la contribuir al proyecto, por favor sigue estas reglas:
+
 1. Crea una nueva rama con tu feature: `git checkout -b feature-nueva`.
 2. Realiza los cambios y haz commit: `git commit -m "Descripción de los cambios"`.
 3. Sube los cambios: `git push origin feature-nueva`.
 4. Realiza un **Pull Request**.
 
 ---
-
-
-
-
-
