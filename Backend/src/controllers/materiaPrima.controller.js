@@ -13,7 +13,7 @@ class materiaPrimaController {
   static async obtenerIdMateriasPrimas (req, res) {
     try {
       const materiaPrimas = await MateriaPrimaService.obtenerIdMateriasPrimas()
-      res.status(201).json(materiaPrimas)
+      res.status(200).json(materiaPrimas)
     } catch (error) {
       res.status(500).json({ error: error.message })
     }

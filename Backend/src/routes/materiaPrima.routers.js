@@ -4,6 +4,6 @@ import materiaPrimaController from '../controllers/materiaPrima.controller.js'
 const router = Router()
 
 router.get('/', materiaPrimaController.obtenerMateriasPrimas)
-router.get('/id-materias-primas', materiaPrimaController.obtenerIdMateriasPrimas)
+router.get('/nombres-id', materiaPrimaController.obtenerIdMateriasPrimas)
 
 export default router
