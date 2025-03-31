@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Amara Frontend
 
-## Getting Started
+Este es el frontend de **Amara**, una aplicación desarrollada con **Next.js** para la gestión de usuarios y más funcionalidades que se irán agregando con el tiempo.
 
-First, run the development server:
+## 🚀 Tecnologías utilizadas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- [Next.js](https://nextjs.org/) - Framework de React
+- [Tailwind CSS](https://tailwindcss.com/) - Estilos
+- [SweetAlert2](https://sweetalert2.github.io/) - Alertas interactivas
+- [ShadCN/UI](https://ui.shadcn.com/) - Componentes UI reutilizables
+
+## 📂 Estructura del proyecto
+
+```
+📂 frontend-amara
+│── 📂 app               # Páginas principales del proyecto
+│    ├── 📂 login        # Página de inicio de sesión
+│    ├── 📂 dashboard    # Panel de usuario
+│    ├── 📂 personas     # Gestión de personas
+│    ├── 📜 layout.js    # Layout general con Navbar y Footer
+│── 📂 components        # Componentes reutilizables
+│── 📂 styles            # Estilos globales y Tailwind
+│── 📜 README.md         # Este archivo
+│── 📜 package.json      # Dependencias y scripts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔧 Instalación y configuración
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. Clona este repositorio:
+   ```sh
+   git clone https://github.com/tu-usuario/amara-frontend.git
+   cd amara-frontend
+   ```
+2. Instala las dependencias:
+   ```sh
+   npm install
+   ```
+3. Ejecuta el entorno de desarrollo:
+   ```sh
+   npm run dev
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏗️ Funcionalidades actuales
 
-## Learn More
+- Autenticación de usuarios (login)
+- Gestión de personas
+- Navegación con Next.js
+- Alertas interactivas con SweetAlert2
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📌 Roadmap (Próximas mejoras)
+- [ ] Registro de usuarios
+- [ ] Dashboard con estadísticas
+- [ ] Modo oscuro
+- [ ] Optimización de rendimiento
