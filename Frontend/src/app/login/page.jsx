@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { log } from "@/app/log"
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "../../components/ui/button"
-import { Input } from "../../components/ui/input"
-import { Label } from "../../components/ui/label"
-import Swal from 'sweetalert2'
+import { log } from "@/app/log";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
+import Swal from "sweetalert2";
 
 export default function LoginForm() {
     const [nombre_usuario, setHombre_usuario] = useState("");
@@ -17,7 +17,6 @@ export default function LoginForm() {
     const handleSubmit = async (e) => {
         e.preventDefault(); // Evita el refresh de la página
 
-
         // Validación de campos vacíos
         if (!nombre_usuario || !password) {
             Swal.fire({
@@ -27,7 +26,7 @@ export default function LoginForm() {
                 confirmButtonText: "Aceptar",
             });
             // setError("Todos los campos son obligatorios");
-            return
+            return;
         }
 
         // Autenticación con el backend
@@ -37,18 +36,21 @@ export default function LoginForm() {
             // console.log("Datos enviados:", JSON.stringify({ nombre_usuario, password }));
             log();
 
-
-            const response = await fetch("https://amara-backend-production-2ae0.up.railway.app/api/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json", },
-                body: JSON.stringify({ nombre_usuario, password }) //Enviando email y password al backend
-            });
+            const response = await fetch(
+                "https://amara-backend-production-2ae0.up.railway.app/api/login",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ nombre_usuario, password }), //Enviando email y password al backend
+                }
+            );
 
             const data = await response.json(); // Convertir a JSON
             console.log("Log del response:", data.message); // Ahora sí imprime el contenido correctamente
 
             // Verificando si la respuesta es correcta si la respuesta no es correcta, lanza un error
-            if (!response.ok) throw new Error(data.error || "Error en la autenticación");
+            if (!response.ok)
+                throw new Error(data.error || "Error en la autenticación");
 
             Swal.fire({
                 icon: "success",
@@ -61,7 +63,6 @@ export default function LoginForm() {
 
             // Si la autenticación es exitosa, redirigir al usuario a la página de inicio
             router.push("/tablePersonas");
-
         } catch (error) {
             setError(error.message);
             // console.error("Error de autenticación:", error.message);
@@ -93,7 +94,7 @@ export default function LoginForm() {
         //     });
         //     // setError("Credenciales incorrectas");
         // }
-    }
+    };
 
     log();
 
@@ -125,8 +126,10 @@ export default function LoginForm() {
                     />
                 </div>
 
-                <Button type="submit" className="w-full">Iniciar Sesión</Button>
+                <Button type="submit" className="w-full">
+                    Iniciar Sesión
+                </Button>
             </form>
         </div>
-    )
+    );
 }
