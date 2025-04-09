@@ -2,7 +2,6 @@
 
 import { log } from "@/app/log"
 import { useEffect, useState } from "react"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export default function TablePersonas() {
     // Datos de ejemplo (puedes cambiarlo por datos de una API)
@@ -17,6 +16,7 @@ export default function TablePersonas() {
     //  y el estado de carga
     const [personas, setPersonas] = useState([]);
     const [loading, setLoading] = useState(true);
+    const noApli = <b>No Aplica</b>; //  Este es el valor que se mostrará en caso de que no haya datos disponibles
 
     //  Este es el efecto que se ejecuta al cargar el componente y hace la llamada a la API
     useEffect(() => {
@@ -43,48 +43,76 @@ export default function TablePersonas() {
 
     log();
     return (
-        <div className="w-full max-w-5xl mx-auto mt-10 p-6 border rounded-lg shadow-lg bg-white">
-            <h2 className="text-2xl font-bold mb-4">Lista de Personas</h2>
+        <div className="container mt-5">
+            <div className="card shadow p-4">
+                <h2 className="mb-4">Lista de Personas</h2>
 
-            {loading ? (
-                <p>Cargando...</p>
-            ) : (
-                <div className="w-full max-h-[400px] overflow-y-auto">
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>ID</TableHead>
-                                <TableHead>Nombre</TableHead>
-                                <TableHead>Apellido</TableHead>
-                                <TableHead>Celular</TableHead>
-                                <TableHead>Tipo de Persona</TableHead>
-                                <TableHead>Edad</TableHead>
-                                <TableHead>Direccion</TableHead>
-                                <TableHead>Correo Electrónico</TableHead>
-                            </TableRow>
-                        </TableHeader>
-
-                        <TableBody>
-                            {personas.map((user, index) => (
-                                <TableRow key={user.id_persona}>
-
-                                    {/* Contador automatico */}
-                                    <TableCell>{index + 1}</TableCell>
-
-                                    <TableCell>{user.nombre}</TableCell>
-                                    <TableCell>{user.apellido}</TableCell>
-                                    <TableCell>{user.celular}</TableCell>
-                                    <TableCell>{user.tipo_persona}</TableCell>
-                                    <TableCell>{user.edad}</TableCell>
-                                    <TableCell>{user.direccion}</TableCell>
-                                    <TableCell>{user.correo}</TableCell>
-                                </TableRow>
+                {loading ? (
+                    <div className="table-responsive">
+                                            <table className="table text-center">
+                        <thead className="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Celular</th>
+                                <th>Tipo de Persona</th>
+                                <th>Edad</th>
+                                <th>Dirección</th>
+                                <th>Correo Electrónico</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Array.from({ length: 5 }).map((_, index) => (
+                                <tr key={index}>
+                                    {Array.from({ length: 8 }).map((_, i) => (
+                                        <td key={i}>
+                                            <div className="placeholder-glow">
+                                                <span className="placeholder col-12"></span>
+                                            </div>
+                                        </td>
+                                    ))}
+                                </tr>
                             ))}
-                        </TableBody>
-                    </Table>
-                </div>
-            )
-            }
+                        </tbody>
+                    </table>
+                    </div>
+                    // <p>Cargando...</p>
+                ) : (
+                    <div className="table-responsive">
+                        <table className="table table-striped text-center">
+                            <thead className="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Celular</th>
+                                    <th>Tipo de Persona</th>
+                                    <th>Edad</th>
+                                    <th>Dirección</th>
+                                    <th>Correo Electrónico</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {personas.map((user, index) => (
+                                    <tr key={user.id_persona}>
+                                        <td>{index + 1}</td>
+                                        <td>{user.nombre || noApli}</td>
+                                        <td>{user.apellido || noApli}</td>
+                                        <td>{user.celular || noApli}</td>
+                                        <td>{user.tipo_persona || noApli}</td>
+                                        <td>{user.edad || noApli}</td>
+                                        <td>{user.direccion || noApli}</td>
+                                        <td>{user.correo || noApli}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+            </div>
         </div>
+
+
     )
 }

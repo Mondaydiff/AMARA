@@ -3,9 +3,6 @@
 import { log } from "@/app/log";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
 import Swal from "sweetalert2";
 
 export default function LoginForm() {
@@ -53,12 +50,18 @@ export default function LoginForm() {
                 throw new Error(data.error || "Error en la autenticación");
 
             Swal.fire({
+                position: "top-end",
                 icon: "success",
                 title: "Inicio de sesión exitoso",
-                Position: "top-end",
+                color: "white",
+                background: "#00b613",
                 showConfirmButton: false,
-                timer: 1100,
+                timer: 1000,
                 timerProgressBar: true,
+                toast: true, // ¡Esto es clave para que se vea como una notificación pequeña!
+                customClass: {
+                    popup: 'small-toast'
+                }
             });
 
             // Si la autenticación es exitosa, redirigir al usuario a la página de inicio
@@ -99,37 +102,46 @@ export default function LoginForm() {
     log();
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-10 w-full border rounded-lg shadow-lg bg-white">
-            <h2 className="text-2xl font-bold mb-4">Iniciar Sesión</h2>
-            {/* {error && <p className="text-red-500">{error}</p>} */}
+        <div className="container min-vh-100 d-flex justify-content-center align-items-center">
+            <div className="card shadow p-4" style={{ maxWidth: "400px", width: "100%" }}>
+                <h2 className="text-center mb-4">Iniciar Sesión</h2>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                    <Label htmlFor="text">Usuario</Label>
-                    <Input
-                        id="nombre_usuario"
-                        type="text"
-                        placeholder="Poguito"
-                        value={nombre_usuario}
-                        onChange={(e) => setHombre_usuario(e.target.value)}
-                    />
+                <div className="text-center mb-3">
+                    <b>AMARA🧀</b>
                 </div>
+                {/* {error && <p className="text-danger">{error}</p>} */}
 
-                <div>
-                    <Label htmlFor="password">Contraseña</Label>
-                    <Input
-                        id="password"
-                        type="password"
-                        placeholder="••••••••"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label htmlFor="nombre_usuario" className="form-label">Usuario</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="nombre_usuario"
+                            placeholder="Poguito"
+                            value={nombre_usuario}
+                            onChange={(e) => setHombre_usuario(e.target.value)}
+                        />
+                    </div>
 
-                <Button type="submit" className="w-full">
-                    Iniciar Sesión
-                </Button>
-            </form>
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label">Contraseña</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="password"
+                            placeholder="••••••••"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+
+                    <button type="submit" className="btn btn-primary w-100">
+                        Iniciar Sesión
+                    </button>
+                </form>
+            </div>
         </div>
+
     );
 }
