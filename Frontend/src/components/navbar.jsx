@@ -10,7 +10,7 @@ const links = [
     { href: "/tablePersonas", label: "Personas", icon: <Users className="me-1" size={16} /> },
 ]
 
-export default function Navbar() {
+export default function Navbar(props) {
     const pathname = usePathname()
     const router = useRouter()
 

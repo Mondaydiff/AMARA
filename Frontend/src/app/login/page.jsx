@@ -65,7 +65,8 @@ export default function LoginForm() {
             });
 
             // Si la autenticación es exitosa, redirigir al usuario a la página de inicio
-            router.push("/tablePersonas");
+            router.push("/tableProduccion");
+
         } catch (error) {
             setError(error.message);
             // console.error("Error de autenticación:", error.message);
@@ -102,46 +103,46 @@ export default function LoginForm() {
     log();
 
     return (
-        <div className="container min-vh-100 d-flex justify-content-center align-items-center">
-            <div className="card shadow p-4" style={{ maxWidth: "400px", width: "100%" }}>
-                <h2 className="text-center mb-4">Iniciar Sesión</h2>
+            <div className="container p-5 d-flex justify-content-center align-items-center" style={{ minHeight: "80vh" }}>
+                <div className="card shadow p-4" style={{ maxWidth: "400px", width: "100%" }}>
+                    <div className="text-center mb-3">
+                        <b>AMARA🧀</b>
+                    </div>
+                    {/* {error && <p className="text-danger">{error}</p>} */}
 
-                <div className="text-center mb-3">
-                    <b>AMARA🧀</b>
+                    <h2 className="text-center mb-4">Iniciar Sesión</h2>
+
+
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <label htmlFor="nombre_usuario" className="form-label">Usuario</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="nombre_usuario"
+                                placeholder="Poguito"
+                                value={nombre_usuario}
+                                onChange={(e) => setHombre_usuario(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="password" className="form-label">Contraseña</label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                id="password"
+                                placeholder="••••••••"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+
+                        <button type="submit" className="btn btn-primary w-100">
+                            Iniciar Sesión
+                        </button>
+                    </form>
                 </div>
-                {/* {error && <p className="text-danger">{error}</p>} */}
-
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="nombre_usuario" className="form-label">Usuario</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="nombre_usuario"
-                            placeholder="Poguito"
-                            value={nombre_usuario}
-                            onChange={(e) => setHombre_usuario(e.target.value)}
-                        />
-                    </div>
-
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label">Contraseña</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            id="password"
-                            placeholder="••••••••"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-
-                    <button type="submit" className="btn btn-primary w-100">
-                        Iniciar Sesión
-                    </button>
-                </form>
             </div>
-        </div>
-
     );
 }

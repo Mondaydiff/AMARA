@@ -49,34 +49,36 @@ export default function TablePersonas() {
 
                 {loading ? (
                     <div className="table-responsive">
-                                            <table className="table text-center">
-                        <thead className="table-light">
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Celular</th>
-                                <th>Tipo de Persona</th>
-                                <th>Edad</th>
-                                <th>Dirección</th>
-                                <th>Correo Electrónico</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {Array.from({ length: 5 }).map((_, index) => (
-                                <tr key={index}>
-                                    {Array.from({ length: 8 }).map((_, i) => (
-                                        <td key={i}>
-                                            <div className="placeholder-glow">
-                                                <span className="placeholder col-12"></span>
-                                            </div>
-                                        </td>
-                                    ))}
+                        <table className="table text-center">
+                            <thead className="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Celular</th>
+                                    <th>Tipo de Persona</th>
+                                    <th>Edad</th>
+                                    <th>Dirección</th>
+                                    <th>Correo Electrónico</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {Array.from({ length: 5 }).map((_, index) => (
+                                    <tr key={index}>
+                                        {Array.from({ length: 8 }).map((_, i) => (
+                                            <td key={i}>
+                                                <div className="placeholder-glow">
+                                                    <span className="placeholder col-12"></span>
+                                                </div>
+                                            </td>
+                                        ))}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
+
+                    // <div className="text-center"><div className="spinner-border" role="status"></div></div>
                     // <p>Cargando...</p>
                 ) : (
                     <div className="table-responsive">
@@ -112,7 +114,5 @@ export default function TablePersonas() {
                 )}
             </div>
         </div>
-
-
     )
 }

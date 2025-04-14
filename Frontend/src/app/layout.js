@@ -1,9 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Sidebar from "./navbar/layout";
 // Importar solo el JS necesario
 import BootstrapClientScripts from './BootstrapClientScripts'
-
+import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
 
 
 
@@ -26,10 +26,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <BootstrapClientScripts />
-        <Sidebar />
-        {children}
-
+        <div className="d-flex flex-column min-vh-100">
+            <BootstrapClientScripts />
+            <Navbar />
+            {children}
+          <Footer />
+        </div>
       </body>
     </html >
   );
