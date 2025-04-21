@@ -24,7 +24,6 @@ export default function TableProduccion() {
         responsable: "",
         observaciones: "",
     }); // Estado para almacenar los datos del formulario
-
     const [detalles, setDetalles] = useState([
         { materiaPrima: '', cantidad: '', unidad: '' }
     ]);
@@ -40,6 +39,8 @@ export default function TableProduccion() {
     const [quesos, setQuesos] = useState([]);
 
     const [idQueso, setIdQueso] = useState('');
+
+
 
 
 
@@ -163,8 +164,15 @@ export default function TableProduccion() {
     //  Este es el manejador de eventos para el botón de guardar
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    }
+
+        // Convertir a número si es cantidad_producida o id_queso
+        const parsedValue = ["cantidad_producida", "id_queso"].includes(name)
+            ? parseInt(value)
+            : value;
+
+        setFormData({ ...formData, [name]: parsedValue });
+    };
+
 
     // Este es el manejador de eventos para el botón de agregar detalle
     const handleDetalleChange = (index, field, value) => {
@@ -179,43 +187,57 @@ export default function TableProduccion() {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
-        console.log("Datos del formulario:", formData); // Verifica los datos del formulario
+        e.preventDefault();
+        const payload = {
+            ...formData,
+            id_queso: parseInt(formData.id_queso), // fuerza a número
+            detalles: detalles.map((d) => ({
+                id_materia: parseInt(d.materiaPrima),
+                cantidad_usada: parseFloat(d.cantidad),
+                unidad_medida: d.unidad,
+            })),
+        };
 
-        const response = await fetch("https://amara-backend-production-2ae0.up.railway.app/api/produccion/create", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData), // Convertir el objeto a JSON
-        });
 
-        if (!response.ok) {
-            console.error("Error en la respuesta de la API");
-            return;
+        try {
+            console.log("Payload enviado:", payload);
+            const response = await fetch("https://amara-backend-production-2ae0.up.railway.app/api/produccion/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                console.error("Error en la respuesta de la API");
+                Swal.fire("Error", "No se pudo guardar la producción", "error");
+                return;
+            }
+
+            const data = await response.json();
+            console.log("Respuesta de la API:", data);
+
+            Swal.fire("Éxito", "Producción registrada correctamente", "success");
+
+            // Limpiar los estados y cerrar modal
+            setFormData({
+                id_queso: "",
+                cantidad_producida: "",
+                responsable: "",
+                estado: "",
+                observaciones: "",
+            });
+            setDetalles([{ materiaPrima: '', cantidad: '', unidad: '' }]);
+            setShowModal(false);
+            fetchData(); // refrescar datos
+
+        } catch (error) {
+            console.error("Error al enviar los datos:", error);
+            Swal.fire("Error", "Ocurrió un error inesperado", "error");
         }
+    };
 
-        const data = await response.json();
-        console.log("Respuesta de la API:", data); // Verifica la respuesta de la API
-
-        setShowModal(false); // Cerrar el modal después de enviar el formulario
-        setFormData({ // Limpiar el formulario después de enviar
-            id_queso: "",
-            cantidad_producida: "",
-            responsable: "",
-            estado: '',
-            observaciones: "",
-            detalles: [
-                {
-                    id_materia: "",
-                    cantidad_usada: "",
-                    unidad_medida: "",
-                }
-            ]
-        });
-
-        fetchData(); // Actualizar la tabla después de enviar el formulario
-    }
 
     const eliminarDetalle = (index) => {
         const nuevosDetalles = [...detalles];
@@ -246,12 +268,13 @@ export default function TableProduccion() {
                                 <Form.Label>Queso</Form.Label>
                                 <Form.Select
                                     required
-                                    value={idQueso} // este valor debe estar en un estado también, como useState('')
-                                    onChange={(e) => setIdQueso(e.target.value)}
+                                    name="id_queso"
+                                    value={formData.id_queso}
+                                    onChange={handleChange}
                                 >
                                     <option value="">Seleccione un queso</option>
                                     {quesos.map((queso) => (
-                                        <option key={queso.id} value={queso.id}>
+                                        <option key={queso.id_queso} value={queso.id_queso}>
                                             {queso.nombre}
                                         </option>
                                     ))}
@@ -260,20 +283,34 @@ export default function TableProduccion() {
 
                             <Form.Group className="mb-3">
                                 <Form.Label>Cantidad Producida</Form.Label>
-                                <Form.Control type="number" placeholder="Cantidad producida" required />
+                                <Form.Control type="number"
+                                    placeholder="Cantidad producida"
+                                    required
+                                    name="cantidad_producida"
+                                    value={formData.cantidad_producida}
+                                    onChange={handleChange}
+                                />
                             </Form.Group>
 
                             <Form.Group className="mb-3">
                                 <Form.Label>Responsable</Form.Label>
-                                <Form.Control type="text" placeholder="Responsable" required />
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Responsable"
+                                    required
+                                    name="responsable"
+                                    value={formData.responsable}
+                                    onChange={handleChange}
+                                />
                             </Form.Group>
 
                             <Form.Group className="mb-3">
                                 <Form.Label>Estado</Form.Label>
                                 <Form.Select
                                     required
-                                    value={estadoSeleccionado}
-                                    onChange={(e) => setEstadoSeleccionado(e.target.value)}
+                                    name="estado"
+                                    value={formData.estado}
+                                    onChange={handleChange}
                                 >
                                     <option value="">Seleccione</option>
                                     {estados.map((state, index) => (
@@ -285,7 +322,14 @@ export default function TableProduccion() {
 
                             <Form.Group className="mb-3">
                                 <Form.Label>Observaciones</Form.Label>
-                                <Form.Control type="text" placeholder="Observaciones" required />
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Observaciones"
+                                    required
+                                    name="observaciones"
+                                    value={formData.observaciones}
+                                    onChange={handleChange}
+                                />
                             </Form.Group>
 
                             <h5>Detalles de Materia Prima</h5>
@@ -311,7 +355,7 @@ export default function TableProduccion() {
                                             >
                                                 <option value="">Seleccione</option>
                                                 {materiasPrimas.map((mp) => (
-                                                    <option key={mp.id} value={mp.id}>
+                                                    <option key={mp.id_materia} value={mp.id_materia}>
                                                         {mp.nombre}
                                                     </option>
                                                 ))}
