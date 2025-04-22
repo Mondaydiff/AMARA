@@ -34,12 +34,14 @@ export default function TableProduccion() {
 
     const [estadoSeleccionado, setEstadoSeleccionado] = useState('');
 
-    const estados = ['en proceso', 'finalizado', 'cancelado'];
+    const estados = ['finalizado', 'cancelado'];
 
     const [quesos, setQuesos] = useState([]);
 
     const [idQueso, setIdQueso] = useState('');
 
+    const [modoEdicion, setModoEdicion] = useState(false);
+    const [idEdicion, setIdEdicion] = useState(null);
 
 
 
@@ -92,17 +94,51 @@ export default function TableProduccion() {
 
     //  Este es el manejador de eventos para el botón de agregar
     const handleCrear = () => {
-        // console.log("Crear nueva produccion");
-        // alert("Crear nueva produccion");
-        setShowModal(true); // Mostrar el modal
-    }
+        setModoEdicion(false);
+        setIdEdicion(null);
+        setFormData({
+            id_queso: "",
+            cantidad_producida: "",
+            responsable: "",
+            estado: "",
+            observaciones: "",
+        });
+        setDetalles([{ materiaPrima: '', cantidad: '', unidad: '' }]);
+        setShowModal(true);
+    };
+
 
 
     //  Este es el manejador de eventos para el botón de editar
-    const handleEditar = (id) => {
-        // console.log(`Eliminar produccion con ID: ${id}`);
-        alert(`Eliminar produccion con ID: ${id}`);
-    }
+    const handleEditar = async (id) => {
+        try {
+            const res = await fetch(`https://amara-backend-production-2ae0.up.railway.app/api/produccion/${id}`);
+
+            const data = await res.json();
+            const response = data[0]
+            setFormData({
+                id_queso: response.id_queso,
+                cantidad_producida: response.cantidad_producida,
+                responsable: response.responsable,
+                estado: response.estado,
+                observaciones: response.observaciones,
+            });
+
+            // setDetalles(response.detalles.map(d => ({
+            //     materiaPrima: d.id_materia,
+            //     cantidad: d.cantidad_usada,
+            //     unidad: d.unidad_medida
+            // })));
+
+            setModoEdicion(true);
+            setIdEdicion(id);
+            setShowModal(true);
+        } catch (error) {
+            console.error("Error al cargar la producción:", error);
+            Swal.fire("Error", "No se pudo cargar la producción para editar", "error");
+        }
+    };
+
 
 
     //  Este es el manejador de eventos para el botón de eliminar
@@ -190,7 +226,7 @@ export default function TableProduccion() {
         e.preventDefault();
         const payload = {
             ...formData,
-            id_queso: parseInt(formData.id_queso), // fuerza a número
+            id_queso: parseInt(formData.id_queso),
             detalles: detalles.map((d) => ({
                 id_materia: parseInt(d.materiaPrima),
                 cantidad_usada: parseFloat(d.cantidad),
@@ -198,45 +234,38 @@ export default function TableProduccion() {
             })),
         };
 
-
         try {
-            console.log("Payload enviado:", payload);
-            const response = await fetch("https://amara-backend-production-2ae0.up.railway.app/api/produccion/create", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+            const url = modoEdicion
+                ? `https://amara-backend-production-2ae0.up.railway.app/api/produccion/${idEdicion}`
+                : "https://amara-backend-production-2ae0.up.railway.app/api/produccion/create";
+
+            const method = modoEdicion ? "PUT" : "POST";
+
+            const response = await fetch(url, {
+                method,
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
             });
 
             if (!response.ok) {
-                console.error("Error en la respuesta de la API");
                 Swal.fire("Error", "No se pudo guardar la producción", "error");
                 return;
             }
 
-            const data = await response.json();
-            console.log("Respuesta de la API:", data);
+            Swal.fire("Éxito", modoEdicion ? "Producción actualizada" : "Producción registrada", "success");
 
-            Swal.fire("Éxito", "Producción registrada correctamente", "success");
-
-            // Limpiar los estados y cerrar modal
-            setFormData({
-                id_queso: "",
-                cantidad_producida: "",
-                responsable: "",
-                estado: "",
-                observaciones: "",
-            });
+            // Reset y cerrar modal
+            setFormData({ id_queso: "", cantidad_producida: "", responsable: "", estado: "", observaciones: "" });
             setDetalles([{ materiaPrima: '', cantidad: '', unidad: '' }]);
             setShowModal(false);
-            fetchData(); // refrescar datos
+            fetchData();
 
         } catch (error) {
             console.error("Error al enviar los datos:", error);
             Swal.fire("Error", "Ocurrió un error inesperado", "error");
         }
     };
+
 
 
     const eliminarDetalle = (index) => {
@@ -260,7 +289,8 @@ export default function TableProduccion() {
 
                 <Modal show={showModal} onHide={() => setShowModal(false)} centered>
                     <Modal.Header closeButton>
-                        <Modal.Title>Registrar Producción</Modal.Title>
+                        <Modal.Title>{modoEdicion ? "Editar Producción" : "Registrar Producción"}</Modal.Title>
+
                     </Modal.Header>
                     <Modal.Body>
                         <Form onSubmit={handleSubmit}>
@@ -306,18 +336,29 @@ export default function TableProduccion() {
 
                             <Form.Group className="mb-3">
                                 <Form.Label>Estado</Form.Label>
-                                <Form.Select
-                                    required
-                                    name="estado"
-                                    value={formData.estado}
-                                    onChange={handleChange}
-                                >
-                                    <option value="">Seleccione</option>
-                                    {estados.map((state, index) => (
-                                        <option key={index} value={state}>{state}</option>
-                                    ))}
-                                </Form.Select>
+                                {modoEdicion ? (
+                                    <Form.Select
+                                        required
+                                        name="estado"
+                                        value={formData.estado}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">Seleccione</option>
+                                        {estados.map((state, index) => (
+                                            <option key={index} value={state}>{state}</option>
+                                        ))}
+                                    </Form.Select>
+                                ) : (
+                                    <Form.Control
+                                        type="text"
+                                        name="estado"
+                                        value={formData.estado = 'en proceso'}
+                                        disabled
+                                        onChange={handleChange}
+                                    />
+                                )}
                             </Form.Group>
+
 
 
                             <Form.Group className="mb-3">
