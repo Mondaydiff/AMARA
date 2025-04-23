@@ -1,13 +1,14 @@
 "use client"
 
 import Link from "next/link"
-import { Home, Users, LogOut, Factory } from "lucide-react"
+import { Home, Users, LogOut, Factory, ShoppingBasket } from "lucide-react"
 import { useRouter, usePathname } from "next/navigation"
 import Swal from "sweetalert2"
 
 const links = [
-    { href: "/tableProduccion", label: "Produccion", icon: <Factory className="me-1" size={16} />},
+    { href: "/tableProduccion", label: "Produccion", icon: <Factory className="me-1" size={16} /> },
     { href: "/tablePersonas", label: "Personas", icon: <Users className="me-1" size={16} /> },
+    { href: "/tableVentas", label: "Ventas", icon: <ShoppingBasket className="me-1" size={16} /> },
 ]
 
 export default function Navbar(props) {
@@ -48,7 +49,8 @@ export default function Navbar(props) {
     return (
         <nav className="navbar navbar-expand-md navbar-light bg-white border-bottom shadow-sm px-4 py-2">
             <div className="container-fluid">
-                <span className="navbar-brand fw-bold">AMARA🧀</span>
+                <img src="/amaraProfilePNG.png" alt="Lácteos Amara" height="60" className="navbar-brand" />
+
 
                 <button
                     className="navbar-toggler"

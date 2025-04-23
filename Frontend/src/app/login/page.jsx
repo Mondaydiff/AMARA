@@ -103,46 +103,46 @@ export default function LoginForm() {
     log();
 
     return (
-            <div className="container p-5 d-flex justify-content-center align-items-center" style={{ minHeight: "80vh" }}>
-                <div className="card shadow p-4" style={{ maxWidth: "400px", width: "100%" }}>
-                    <div className="text-center mb-3">
-                        <b>AMARA🧀</b>
-                    </div>
-                    {/* {error && <p className="text-danger">{error}</p>} */}
-
-                    <h2 className="text-center mb-4">Iniciar Sesión</h2>
-
-
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-3">
-                            <label htmlFor="nombre_usuario" className="form-label">Usuario</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="nombre_usuario"
-                                placeholder="Poguito"
-                                value={nombre_usuario}
-                                onChange={(e) => setHombre_usuario(e.target.value)}
-                            />
-                        </div>
-
-                        <div className="mb-3">
-                            <label htmlFor="password" className="form-label">Contraseña</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                id="password"
-                                placeholder="••••••••"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </div>
-
-                        <button type="submit" className="btn btn-primary w-100">
-                            Iniciar Sesión
-                        </button>
-                    </form>
+        <div className="container p-5 d-flex justify-content-center align-items-center" style={{ minHeight: "80vh" }}>
+            <div className="card shadow p-4" style={{ maxWidth: "400px", width: "100%" }}>
+                <div className="text-center mb-3">
+                    <img src="/amaraProfilePNG.png" alt="Lácteos Amara" height="60" className="navbar-brand" />
                 </div>
+                {/* {error && <p className="text-danger">{error}</p>} */}
+
+                <h2 className="text-center mb-4">Iniciar Sesión</h2>
+
+
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label htmlFor="nombre_usuario" className="form-label">Usuario</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="nombre_usuario"
+                            placeholder="Poguito"
+                            value={nombre_usuario}
+                            onChange={(e) => setHombre_usuario(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label">Contraseña</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="password"
+                            placeholder="••••••••"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+
+                    <button type="submit" className="btn btn-primary w-100">
+                        Iniciar Sesión
+                    </button>
+                </form>
             </div>
+        </div>
     );
 }
