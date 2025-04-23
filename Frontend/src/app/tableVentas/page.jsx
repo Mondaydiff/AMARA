@@ -263,33 +263,36 @@ export default function TableVentas() {
               </tr>
             </thead>
             <tbody>
-              {loading ? (
-                <tr>
-                  <td colSpan="6">Cargando...</td>
+              {loading ? Array.from({ length: 5 }).map((_, i) => (
+                <tr key={i}>
+                  {Array.from({ length: 10 }).map((_, j) => (
+                    <td key={j}><div className="placeholder-glow"><span className="placeholder col-12"></span></div></td>
+                  ))}
                 </tr>
-              ) : (
-                ventas.map((venta, index) => (
-                  <tr key={venta.id_venta}>
-                    <td>{index + 1}</td>
-                    <td>{venta.Cedula || noApli}</td>
-                    <td>{venta.Nombre_Completo || noApli}</td>
-                    <td>${venta.Total_Venta?.toLocaleString("es-CO") || noApli}</td>
-                    <td>
-                      {venta.Fecha_Venta
-                        ? new Date(venta.Fecha_Venta).toLocaleDateString("es-CO", {
-                          weekday: "long",
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric"
-                        })
-                        : noApli}
-                    </td>
-                    <td>
-                      <ButtonAction icon={Trash} color="danger" onClick={() => handleEliminar(venta.id_venta)} />
-                    </td>
-                  </tr>
-                ))
-              )}
+              ))
+                : (
+                  ventas.map((venta, index) => (
+                    <tr key={venta.id_venta}>
+                      <td>{index + 1}</td>
+                      <td>{venta.Cedula || noApli}</td>
+                      <td>{venta.Nombre_Completo || noApli}</td>
+                      <td>${venta.Total_Venta?.toLocaleString("es-CO") || noApli}</td>
+                      <td>
+                        {venta.Fecha_Venta
+                          ? new Date(venta.Fecha_Venta).toLocaleDateString("es-CO", {
+                            weekday: "long",
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric"
+                          })
+                          : noApli}
+                      </td>
+                      <td>
+                        <ButtonAction icon={Trash} color="danger" onClick={() => handleEliminar(venta.id_venta)} />
+                      </td>
+                    </tr>
+                  ))
+                )}
             </tbody>
           </table>
         </div>

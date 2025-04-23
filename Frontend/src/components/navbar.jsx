@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Home, Users, LogOut, Factory, ShoppingBasket } from "lucide-react"
+import { Home, Users, LogOut, Factory, ShoppingBasket, Package } from "lucide-react"
 import { useRouter, usePathname } from "next/navigation"
 import Swal from "sweetalert2"
 
@@ -9,6 +9,7 @@ const links = [
     { href: "/tableProduccion", label: "Produccion", icon: <Factory className="me-1" size={16} /> },
     { href: "/tablePersonas", label: "Personas", icon: <Users className="me-1" size={16} /> },
     { href: "/tableVentas", label: "Ventas", icon: <ShoppingBasket className="me-1" size={16} /> },
+    { href: "/tableQuesos", label: "Quesos", icon: <Package className="me-1" size={16} /> },
 ]
 
 export default function Navbar(props) {
