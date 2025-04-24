@@ -27,10 +27,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="d-flex flex-column min-vh-100">
-            <BootstrapClientScripts />
-            <Navbar />
-            {children}
-          <Footer />
+          <BootstrapClientScripts />
+          <Navbar />
+          {children}
+        <Footer />
         </div>
       </body>
     </html >
