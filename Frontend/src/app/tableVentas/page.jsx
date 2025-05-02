@@ -142,6 +142,7 @@ export default function TableVentas() {
     <div className="container mt-5">
       <div className="card shadow p-4">
         <h2 className="mb-4">Ventas Realizadas</h2>
+        <p className="text-muted">Lista de ventas realizadas</p>
 
         <div className="d-flex justify-content-end mb-3">
           <ButtonAction onClick={handleCrear} icon={ClipboardPlus} color="primary" text="Nueva Venta" />

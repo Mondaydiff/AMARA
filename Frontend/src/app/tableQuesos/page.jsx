@@ -156,6 +156,7 @@ export default function TableQuesos() {
     <div className="container mt-5">
       <div className="card shadow p-4">
         <h2 className="mb-4">Lista de Quesos</h2>
+        <p className="text-muted">Lista de los quesos registrado</p>
 
         <div className="d-flex justify-content-end mb-3">
           <ButtonAction onClick={handleCrear} text=" Crear Queso" icon={ClipboardPlus} color="primary" />

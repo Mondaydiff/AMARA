@@ -202,6 +202,7 @@ export default function TablePersonas() {
         <div className="container mt-5">
             <div className="card shadow p-4">
                 <h2 className="mb-4">Lista de Personas</h2>
+                <p className="text-muted">Lista de las personas registradas</p>
 
                 <div className="d-flex justify-content-end mb-3">
                     <ButtonAction onClick={handleCrear} text=" Crear Persona" icon={ClipboardPlus} color="primary" />

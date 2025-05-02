@@ -280,7 +280,7 @@ export default function TableProduccion() {
         <div className="m-5">
             <div className="card shadow p-4">
                 <h2 className="mb-4">Lista de Produccion</h2>
-                <p className="text-muted">Esta es la lista de produccion de quesos</p>
+                <p className="text-muted">Lista de produccion de quesos</p>
 
                 <div className="d-flex justify-content-end mb-3">
                     <ButtonAction onClick={() => handleCrear()} text=" Crear Producto" icon={ClipboardPlus} color="primary" style={{ margin: "5px", marginRight: "10px" }} />
