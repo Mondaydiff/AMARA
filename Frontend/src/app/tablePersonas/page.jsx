@@ -235,7 +235,11 @@ export default function TablePersonas() {
 
                             <Form.Group className="mb-3">
                                 <Form.Label>Cédula/NIT</Form.Label>
-                                <Form.Control type="text" name="cedula_nit" value={formData.cedula_nit} onChange={handleChange} required />
+                                {modoEdicion ? (
+                                    <Form.Control disabled type="text" name="cedula_nit" value={formData.cedula_nit} onChange={handleChange} required />
+                                ) : (
+                                    <Form.Control type="text" name="cedula_nit" value={formData.cedula_nit} onChange={handleChange} required />
+                                )}
                             </Form.Group>
 
                             <Form.Group className="mb-3">

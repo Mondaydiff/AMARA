@@ -30,6 +30,7 @@ export default function TableQuesos() {
       const data = await res.json();
       setQuesos(data);
 
+
     } catch (error) {
       console.error("Error al obtener quesos:", error);
     } finally {
@@ -151,8 +152,6 @@ export default function TableQuesos() {
       Swal.fire("Error", "No se pudo eliminar el queso.", "error");
     }
   };
-
-
   return (
     <div className="container mt-5">
       <div className="card shadow p-4">

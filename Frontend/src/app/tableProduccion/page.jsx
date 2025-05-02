@@ -296,19 +296,36 @@ export default function TableProduccion() {
                         <Form onSubmit={handleSubmit}>
                             <Form.Group className="mb-3">
                                 <Form.Label>Queso</Form.Label>
-                                <Form.Select
-                                    required
-                                    name="id_queso"
-                                    value={formData.id_queso}
-                                    onChange={handleChange}
-                                >
-                                    <option value="">Seleccione un queso</option>
-                                    {quesos.map((queso) => (
-                                        <option key={queso.id_queso} value={queso.id_queso}>
-                                            {queso.nombre}
-                                        </option>
-                                    ))}
-                                </Form.Select>
+                                {modoEdicion ? (
+                                    <Form.Select
+                                        disabled
+                                        name="id_queso"
+                                        value={formData.id_queso}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">Seleccione un queso</option>
+                                        {quesos.map((queso) => (
+                                            <option key={queso.id_queso} value={queso.id_queso}>
+                                                {queso.nombre}
+                                            </option>
+                                        ))}
+                                    </Form.Select>
+                                ) : (
+                                    <Form.Select
+                                        required
+                                        name="id_queso"
+                                        value={formData.id_queso}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">Seleccione un queso</option>
+                                        {quesos.map((queso) => (
+                                            <option key={queso.id_queso} value={queso.id_queso}>
+                                                {queso.nombre}
+                                            </option>
+                                        ))}
+                                    </Form.Select>
+                                )}
+
                             </Form.Group>
 
                             <Form.Group className="mb-3">
