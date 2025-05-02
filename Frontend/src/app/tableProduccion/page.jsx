@@ -277,7 +277,7 @@ export default function TableProduccion() {
 
     log();
     return (
-        <div className="container mt-5">
+        <div className="m-5">
             <div className="card shadow p-4">
                 <h2 className="mb-4">Lista de Produccion</h2>
                 <p className="text-muted">Esta es la lista de produccion de quesos</p>
