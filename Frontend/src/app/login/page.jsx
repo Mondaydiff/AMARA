@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 
 export default function LoginForm() {
-    const [nombre_usuario, setHombre_usuario] = useState("");
+    const [nombre_usuario, setNombre_usuario] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const router = useRouter();
@@ -122,7 +122,7 @@ export default function LoginForm() {
                             id="nombre_usuario"
                             placeholder="Poguito"
                             value={nombre_usuario}
-                            onChange={(e) => setHombre_usuario(e.target.value)}
+                            onChange={(e) => setNombre_usuario(e.target.value)}
                         />
                     </div>
 
